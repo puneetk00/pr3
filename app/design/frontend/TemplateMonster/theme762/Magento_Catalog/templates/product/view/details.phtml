@@ -1,0 +1,474 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$storeurl = $storeManager->getStore()->getBaseUrl();
+
+$category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+//echo $category->getId();
+    //echo $category->getName();
+	//echo $childcat = $category->getName();
+	//echo $parentcat = $category->getParentCategory()->getName();
+	//echo $grandparentcat = $category->getParentCategory()->getParentCategory()->getName();
+	
+	$childcat = $category->getId();
+	$parentcat = $category->getParentCategory()->getId();
+	$grandparentcat = $category->getParentCategory()->getParentCategory()->getId();
+	
+	if(($grandparentcat != '') && ($grandparentcat != 2))
+	{
+		$cattid =  $grandparentcat;
+	}
+	elseif(($grandparentcat != '') && ($parentcat != ''))
+	{
+		$cattid =  $parentcat;
+	}
+	else{
+		$cattid =  $childcat;
+	}
+
+?>
+<div class="page_contmarino" style="display:none;">
+<?php
+$content = $objectManager->create('\Magento\Cms\Model\PageFactory')->create();
+$content->load(21);
+echo $content->getContent();
+?>
+</div>
+<div class="page_cont" style="display:none;">
+<?php
+$content = $objectManager->create('\Magento\Cms\Model\PageFactory')->create();
+$content->load(20);
+echo $content->getContent();
+?>
+</div>
+
+<div class="curentcat" style="display:none;"><?php echo $cattid; ?></div>
+<div class="curentcatn" style="display:none;"><?php echo $childcat; ?></div>
+
+
+<div class="product info detailed detl" style="position: relative;">
+
+<?php if ($detailedInfoGroup = $block->getGroupChildNames('detailed_info', 'getChildHtml')):?>
+    <div class="product-info-detailed" style="float: right; width: 35%;">
+        <?php $layout = $block->getLayout(); ?>
+        <?php foreach ($detailedInfoGroup as $name):?>
+                    <?php
+                    $alias = $layout->getElementAlias($name);
+                    $label = $block->getChildData($alias, 'title');
+					
+					
+                    ?>
+					<div class="<?php echo $name; ?> <?php if($name == 'product.info.description') { echo 'showmore'; } ?>" style="<?php if($name != 'product.info.description') { echo 'display:none'; } ?>">
+					<?php $string_desc = $layout->renderElement('product.info.description');  
+					//echo $string_desc;
+					 
+					$str = preg_replace('/\<[\/]{0,1}div[^\>]*\>/i', '', $string_desc);
+					 echo $str;
+					/*echo '</br>';
+					 echo substr($str, 0, 150); */
+					 /* $pos=strpos($str, ' ', 300);
+					
+					echo '<div class="shortcont">';
+					echo substr($str,0,$pos ); 
+					echo '</div>';
+					echo '<div class="fullcont" style="display:none;">';
+					echo $str;
+					echo '</div>';
+					 if($pos >= 300)
+					{
+						echo '';
+					}    */
+					
+					?>
+					
+
+					</div>
+					
+<button class="accordion <?php echo $name; ?>" style="<?php if(($name == 'product.info.description') || ($name == 'product.attributes') || ($name == 'reviews.tab') || ($name == 'product.attributes') || ($name == 'product.attributes')) { echo 'display:none'; } ?>"><?php if($label == "Reviews" || $label != strip_tags($label)) { echo "Write Your Own Review";} else { echo $label;  }?></button>
+
+<?php
+                $html = $layout->renderElement($name);
+                if (!trim($html)) {
+                    continue;
+                }
+                ?>
+                <div class="panel">
+                  <p><?php echo $html; ?></p>
+                </div>
+
+ <?php endforeach;?>   
+<b class="rd_more" style="display:none;">Read More</b> 
+    </div>
+	
+<?php endif; ?>
+</div>
+<div id="enquiryform" style="display: none;">
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('product-enquiry')->toHtml() ?>
+</div>
+<div id="popup-modal-custom" style="display: none;">
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('size-guide')->toHtml() ?>
+</div>
+<div id="popup-modal-custom-emailtofriend" style="display: none;">
+<div class="send-friend-banner">
+          <img src="http://staging.dimples.co.nz/media/email/refer-friend-1.jpg" class="img-responsive">
+          <h1 class="newsletter-banner-heading">Email To A Friend</h1>
+          <span class="newsletter-banner-text">share NZ's highest-quality babyware with a friend.</span>
+</div>
+<!--<iframe id="emailtofriend-ifram"src=""></iframe>-->
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('email-to-friend')->toHtml() ?>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function ($, modal) {
+        $('select.swatch-select.color').hide();
+	
+	
+	var curprodttl = $('h1.page-title span').text();
+	$('#prodtitle').val(curprodttl);
+	
+	var desheight = $('.showmore').height();
+	//alert(desheight);
+	if(desheight >= 101)
+	{
+		$('.showmore').addClass('desheight');
+		$('.rd_more').show();
+	}
+    $(".rd_more").click(function(){
+       $('.showmore').toggleClass('authheight');
+	    if ($(this).text() == "Read More")
+		{
+			$(this).text("Read Less")
+		}
+			else
+			{
+		$(this).text("Read More");
+			}
+    });
+	
+	$(".swatch-attribute.size span.swatch-attribute-label").on('click',function(){
+			//alert('aaa');
+			//$('.swatch-attribute.size .swatch-attribute-options').toggle();
+    });
+	$(".swatch-attribute.size .swatch-option.text").on('click',function(){
+			//alert('aaa');
+			$('.swatch-attribute.color .swatch-attribute-options').hide();
+			//$('.swatch-attribute.size .swatch-attribute-options').toggle();
+    });
+	
+	var defsize = $('#product-options-wrapper .swatch-opt .size span.swatch-attribute-label').text();
+	if(defsize != '')
+	{
+		$('#product-options-wrapper .swatch-opt .size span.swatch-attribute-label').text('Select Sizes');
+	}
+		
+		var invitrfriend = $('.action.mailto.friend').attr('href');
+		$("#product-sendtofriend-form").attr("action", invitrfriend+'?referfriend=1');
+		var page_cont = $('.page_cont').find('.globel-right-content p').eq(0).text();
+		var page_contmarino = $('.page_contmarino').find('.globel-right-content p').eq(0).text();
+		
+		var catcur = $('.curentcat').text();
+		var catcur1 = $('.curentcatn').text();
+		var clotfab = $('.clothing_fab').eq(0).text();
+		
+		var brand_cat = $('.brand_fab').eq(0).text();
+		
+		
+		//alert(clotfab);
+		//alert(catcur);
+		if((catcur1 == 3) || (catcur1 == 63) || (catcur == 3))
+		{
+         var sizeguide = '<a class="referfriend accordion" id="opensizeguide" href="#">Size Guide</a>';
+         $('.product-info-detailed').append(sizeguide);
+		}
+        // var shopbylooklink = "<?php echo $storeurl; ?>shop-by-look";
+         //var shopbylook = '<a class="referfriend accordion" target="_blank" href="'+shopbylooklink+'">Shop the Look</a>';
+         //$('.product-info-detailed').append(shopbylook);
+		 
+		
+         var merinolink = "<?php echo $storeurl; ?>about/dimple-merino";
+         var dimplemernio = '<button class="accordion">Our Merino</button><div class="panel"><p>'+page_contmarino+'</p> <div class="actions"><a class="action primary" target="_blank" href="'+merinolink+'">Read More</a></div></div>';
+		 if(((catcur1 == 3) && (clotfab == 'Merino')) || ((catcur == 4) && (clotfab == 'Merino'))  || ((catcur == 3) && (clotfab == 'Merino')) || ((catcur1 == 4) && (clotfab == 'Merino')))
+		{
+         $('.product-info-detailed').append(dimplemernio);
+		}
+		
+		 var cottonlink = "<?php echo $storeurl; ?>about/dimple-cotton";
+         var dimplecotton = '<button class="accordion">Our Cotton</button><div class="panel"><p>'+page_cont+'</p> <div class="actions"><a class="action primary" target="_blank" href="'+cottonlink+'">Read More</a></div></div>';
+		 if(((catcur1 == 3) && (clotfab == 'Cotton')) || ((catcur == 4) && (clotfab == 'Cotton'))  || ((catcur == 3) && (clotfab == 'Cotton')) || ((catcur1 == 4) && (clotfab == 'Cotton')))
+		{
+         $('.product-info-detailed').append(dimplecotton);
+		} 
+        // var deliverylink = "<?php echo $storeurl; ?>delivery-and-returns";
+        //var delivery = '<a class="referfriend accordion" target="_blank" href="'+deliverylink+'">Delivery and Returns</a>';
+         //$('.product-info-detailed').append(delivery);
+
+         var html = $('.product-social-links').find('a.mailto').clone().get(0);
+        // var emailtofriend = '<a id="sendtofrined" class="referfriend accordion" target="_blank" href="'+html+'">Send to a Friend</a>';
+		var emailtofriend = '<a id="sendtofrined" class="referfriend accordion" href="#">Send to a Friend</a>';
+         $('.product-info-detailed').append(emailtofriend);
+		 $('#emailtofriend-ifram').prop('src', html)
+
+         // var enquirylink = "<?php echo $storeurl; ?>contact";
+         // var productenq = '<a class="referfriend accordion" target="_blank" href="'+enquirylink+'">Product Enquiry</a>';
+         // $('.product-info-detailed').append(productenq);
+
+
+         var enquirylink = $("#enquiryform").html();
+         var productenq = '<button class="accordion">Product Enquiry</button><div class="panel">'+enquirylink+'</div>';
+         $('.product-info-detailed').append(productenq);
+         
+		var whatinclud = $('.clothing_included').eq(0).html();
+		var whatincludtext = "<button class='accordion'>What's included</button><div class='panel'>"+whatinclud+"</div>";
+		if(whatinclud != '')
+		{
+		if((catcur == 5) || (catcur == 6) || (catcur1 == 6) || (catcur1 == 5))
+		{
+        $('.product-info-detailed').append(whatincludtext);
+		}
+		}
+		
+		
+		var whataccess = $('.clothing_access').eq(0).html();
+		var whataccesstext = "<button class='accordion'>Accessories</button><div class='panel'>"+whataccess+"</div>";
+		if(whataccess != '')
+		{
+		if((catcur == 5) || (catcur == 6) || (catcur1 == 6) || (catcur1 == 5))
+		{
+        $('.product-info-detailed').append(whataccesstext);
+		}
+		}
+		
+		var whattechpsp = $('.clothing_techpsp').eq(0).html();
+		var whattechpsptext = "<button class='accordion'>Technical Specification</button><div class='panel'>"+whattechpsp+"</div>";
+		if(whattechpsp != '')
+		{
+		if((catcur == 5) || (catcur == 6) || (catcur1 == 6) || (catcur1 == 5))
+		{
+        $('.product-info-detailed').append(whattechpsptext);
+		}
+		}
+		
+		
+		
+		var whatbrands = $('.clothing_brands').eq(0).html();
+		var whatbrandstext = "<button class='accordion'>User Guides</button><div class='panel'>"+whatbrands+"</div>";
+		if(whatbrands != '')
+		{
+		if(brand_cat == 'Stokke')
+		{
+        $('.product-info-detailed').append(whatbrandstext);
+		}
+		}
+		
+		
+		$('.swatch-select.color').find('option').each(function(){
+			$('.swatch-attribute.color .swatch-attribute-options ').append('<div class="swatch-option text firt' + $(this).val() + '" option-type="0" option-id="' + $(this).val() + '" option-label="'+$(this).text()+'" option-tooltip-value="' + $(this).val() + '">'+$(this).text()+'</li>');
+	
+		});
+		
+		$('.firt0').remove();
+		$('.swatch-select.color').hide();
+		$('.swatch-attribute.color .swatch-attribute-options').hide();
+		$(".swatch-attribute.color span.swatch-attribute-label").on('click',function(){
+			//alert('aaa');
+			$('.swatch-attribute.size .swatch-attribute-options').hide();
+			//$('.swatch-attribute.color .swatch-attribute-options').toggle();
+		});
+		$(".swatch-attribute.color .swatch-option.text").on('click',function(){
+				//alert('aaa');
+				//$('.swatch-attribute.color .swatch-attribute-options').toggle();
+		});
+		
+		//<div class="swatch-option text" option-type="0" option-id="15" option-label="Prem" option-tooltip-thumb="" option-tooltip-value="Prem">Prem</div>
+		/* $('.swatch-select.color').parent().append('<ul id="newyearfilter" class="newyearfilter swatchcolor" name="yearfilter"></ul>');
+		
+		$('.swatch-select.color').find('option').each(function(){
+	$('.newyearfilter').append('<li option-id="' + $(this).val() + '" value="' + $(this).val() + '">'+$(this).text()+'</li>');
+		});
+		
+		$('#newyearfilter li:gt(0)').hide();
+		$("#newyearfilter li:eq(0)").on('click',function(){
+			$('#newyearfilter li:gt(0)').toggle();
+		}); */
+		
+		/* $('#attribute90').hide();
+		$('#attribute90').parent('div').append('<div class="custcolr" id="custcolr"><span class="swatch-attribute-selected-option"></span><div class="firtrcoler firtrcolr" option-id="0">Choose Color</div></div>');
+		//$('#attribute90').hide();
+		setTimeout(function() {
+		$('#attribute90').find('option').each(function(){
+			//alert($(this).text());
+			$('#custcolr').append('<div class="firtrcoler firtrcolrd' + $(this).val() + '" option-type="0" option-id="' + $(this).val() + '" option-label="'+$(this).text()+'" option-tooltip-value="' + $(this).val() + '">'+$(this).text()+'</div>');
+	
+		});
+		
+		$('#custcolr .firtrcolrd').remove();
+		$('#custcolr .firtrcoler:gt(0)').hide();
+		
+	}, 5000);
+	
+		$(".firtrcolr").on('click',function(){
+				//alert('aaa');
+				$('#custcolr .firtrcoler:gt(0)').toggle();
+		});
+		$('#custcolr').on('click', '.firtrcoler', function() {
+			$('#attribute90 option').removeAttr('selected');
+			var curcolval = $(this).text();
+			//alert(curcolval);
+			
+			var optionidd = $(this).attr('option-id');
+			//alert(optionidd);
+			if(optionidd == 0)
+			{
+				$('#attribute90 option').removeAttr('selected');
+				$('span.swatch-attribute-selected-option').text('');
+				return false;
+			}
+			else
+			{
+			$('#attribute90').find('option').each(function(){
+				//alert($(this).val());
+				var $this = $(this);
+				
+				 if ($this.val() == optionidd) {
+					$this.attr('selected','selected');
+					//return false;
+				} 
+			});
+			$('#custcolr .firtrcoler:gt(0)').hide();
+			$('span.swatch-attribute-selected-option').text(curcolval);
+		}
+		
+		}); */
+		
+		
+         var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                acc[i].onclick = function(){
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                }
+            }
+
+            var options = {
+                'type': 'popup',
+                'modalClass': 'your_popup_custom_class',
+                'responsive': true,
+                'innerScroll': true,
+                'buttons': [{
+                    text: $.mage.__('Close'),
+                    class: 'back_button_class',
+                    click: function () {
+                        this.closeModal();
+                        // any javascript coode
+                    }
+                }]
+            }; 
+
+  var options1 = {
+                'type': 'popup',
+                'modalClass': 'your_popup_custom_class1',
+                'responsive': true,
+                'innerScroll': true,
+                'buttons': [{
+                    text: $.mage.__('Close'),
+                    class: 'back_button_class',
+                    click: function () {
+                        this.closeModal();
+                        // any javascript coode
+                    }
+                }]
+            };			
+
+            var popup = modal(options, $('#popup-modal-custom'));
+            $("#opensizeguide").on('click',function(){
+                $("#popup-modal-custom").modal("openModal");
+            });
+			 
+			var popup = modal(options1, $('#popup-modal-custom-emailtofriend'));
+            $("#sendtofrined").on('click',function(){
+                $("#popup-modal-custom-emailtofriend").modal("openModal");
+            });
+          /*  $("#sendtofrined").on('click',function(){
+                alert(1);
+            }); */
+
+    });
+</script>
+
+<style>
+.desheight
+{
+	max-height:100px;
+	overflow:hidden;
+}
+.authheight
+{
+	max-height:inherit;
+	overflow:visible;
+}
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd; 
+}
+
+div.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+}
+#product-sendtofriend-form .field.sender.required, #product-sendtofriend-form .field.name.required {
+    float: none;
+    width: 100%;
+}
+#product-sendtofriend-form .field.email.required {
+    float: none;
+    width: 100%;
+	margin: 5px 0;
+}
+label[for=recipients-name0]{display:none !important;}
+label[for=recipients-email0]{display:none !important;}
+.modal-popup.your_popup_custom_class1 .modal-inner-wrap{max-width: 80%;width: 600px;padding: 0px;}
+.modals-wrapper .modal-popup.your_popup_custom_class1 .modal-footer{display:none;}
+.modals-wrapper .modal-popup.your_popup_custom_class1 .modal-inner-wrap{border: none;}
+.modal-popup.your_popup_custom_class1 .modal-content{padding: 0; background: #faf6f5;}
+#product-sendtofriend-form{clear: both; margin: 0 auto; width: 80%;}
+.modal-popup.your_popup_custom_class1 input, .modal-popup.your_popup_custom_class1 textarea{border-color: #e3e1e1;line-height: 24px;font-size: 12px !important;}
+#max-recipient-message{display: none !important;}
+.modals-wrapper .modal-popup.your_popup_custom_class1 .modal-header{width: 24px;height: 24px;position: absolute;top: -13px;color: #fff;right: 3px;z-index: 9999;background: #000;border-radius: 50%;}
+.modals-wrapper .modal-popup.your_popup_custom_class1 .modal-header .action-close{position: absolute;top: 0px;font-size: 19px;right: 3px;}
+.modals-wrapper .modal-popup.your_popup_custom_class1 .modal-header .action-close span{display:none;}
+.modal-popup.your_popup_custom_class1 .newsletter-banner-heading{color: #fff;font-size: 42px;width: 200px;line-height: 40px;margin: 20px 0px;
+    text-align: left;}
+.modal-popup.your_popup_custom_class1 .newsletter-banner-text{color: #fff; width: 130px; margin: 20px 0px;text-align: left;}
+.modal-popup.your_popup_custom_class1 .actions-toolbar{float: none; clear:both;}
+.modal-popup.your_popup_custom_class1 .actions-toolbar .primary{margin: 8px auto 15px;}
+</style>

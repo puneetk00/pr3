@@ -1,0 +1,35 @@
+{
+    "name": "dkoder/newsletterpopup",
+    "description": "Newsletter module with popup registration",
+    "require": {
+        "php": "~5.5.0|~5.6.0|~7.0.0"
+    },
+    "suggest": {
+
+    },
+    "type": "magento2-module",
+    "version": "0.1.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Dkoder\\NewsletterPopup\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Dkoder/NewsletterPopup"
+            ]
+        ]
+    },
+       "authors": [
+         {
+           "name": "Deepanshu Kapoor",
+           "homepage": "http://www.signitysolutions.com/",
+           "role": "Developer"
+         }
+       ]
+}

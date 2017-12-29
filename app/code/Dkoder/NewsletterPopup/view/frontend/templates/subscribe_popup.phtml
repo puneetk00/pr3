@@ -1,0 +1,66 @@
+<?php 
+
+/**
+ * @author Deepanshu kapoor
+ * @package NewsletterPopup
+ */
+$enable  = $block->getConfigVars('dkodernewsletter','status','active');
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+$storeManager = $_objectManager->get('Magento\Store\Model\StoreManagerInterface'); 
+$currentStore = $storeManager->getStore();
+
+if($enable){
+?>
+
+<div id="popup_newsltr" class="ontop">
+
+            <div class="content" >
+                <div class="send-friend-wrapper">
+                <a class="newsletter_close" href="#" onClick="hide('popup_newsltr')">X</a>
+      
+          <div class="send-friend-banner">
+          <img src="<?php echo $currentStore->getBaseUrl(); ?>media/email/newsletter.jpg" class="img-responsive">
+          <h1 class="newsletter-banner-heading">Join Us</h1>
+          <span class="newsletter-banner-text">Sign up to our e-newsletter to get $10 off your first order. You’ll also be the first to hear about new product and special offers.</span>
+          </div>
+
+          <div class="send-firend-form">
+              <form class="form subscribe"
+                      novalidate
+                      action="<?php  echo $block->getFormActionUrl() ?>"
+                      method="post"
+                      data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+                      id="newsletter-validate-detail">
+              <div class="form-field fname">
+              <label>Name : </label>
+              <input name="name" type="text" value="" placeholder="First Name"/>
+              </div>
+              <div class="form-field from">
+              <label>To : </label>
+              <input name="email" data-validate="{required:true, 'validate-email':true}" type="email" value="" placeholder="Your Email Address"/>
+              </div>
+
+
+              <div class="bee-icon">
+              <img src="<?php echo $currentStore->getBaseUrl(); ?>media/email/template/honeybee.png"/>
+              </div>
+              <div class="text-center">
+              <button class="bordered-btn" title="<?php  echo __('Subscribe') ?>" type="submit">
+                            <span><?php echo __('Subscribe') ?></span>
+                        </button>
+              </div>
+
+              </form>
+              
+          </div>
+</div>
+
+    </div>
+
+</div>
+
+<?php } ?>
+
+
+
+

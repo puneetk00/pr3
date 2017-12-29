@@ -1,0 +1,52 @@
+
+<button class="cusomtsearchb">
+    <span class="side-navbar-btn topBarIcon"></span>
+</button>
+<div class="custom_search hideus" style="display:none;">
+<?php include ($block->getTemplateFile('Magento_Search::form.mini.phtml')) ?>
+</div>
+
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        $("#mobile-switcher-currency-trigger").on('click',function(){
+            $(".custom_search").removeClass("active").hide();
+            $(".custom_myaccount").removeClass("active").hide();
+
+        });
+
+        $("#mobile-switcher-language-trigger").on('click',function(){
+            $(".custom_search").removeClass("active").hide();
+            $(".custom_myaccount").removeClass("active").hide();
+
+        });
+        $(".action.showcart.topBarIcon").on('click',function(){
+            $(".custom_search").removeClass("active").hide();
+            $(".custom_myaccount").removeClass("active").hide();
+
+        });
+            
+        $("#search-close").on('click',function(){
+                $(".custom_search").removeClass("active").hide();
+                $('.rd-navbar-toggle').show();
+
+        });
+
+
+
+        $(".cusomtsearchb").on('click',function(){
+            $(".custom_myaccount").removeClass("active").hide();
+            $(".custom_login").removeClass("active").hide();
+            $('rd-navbar-toggle').hide();
+
+            if($(".custom_search").hasClass("active")){
+                $(".custom_search").removeClass("active").hide();
+            } else {
+                $(".custom_search").addClass("active").show();
+            }
+            
+        });
+
+    });
+</script>

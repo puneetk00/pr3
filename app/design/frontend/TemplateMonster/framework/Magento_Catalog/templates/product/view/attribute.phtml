@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @see \Magento\Catalog\Block\Product\View
+ */
+?>
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_product = $block->getProduct();
+$_call = $block->getAtCall();
+$_code = $block->getAtCode();
+$_className = $block->getCssClass();
+$_attributeLabel = $block->getAtLabel();
+$_attributeType = $block->getAtType();
+$_attributeAddAttribute = $block->getAddAttribute();
+
+if ($_attributeLabel && $_attributeLabel == 'default') {
+    $_attributeLabel = $_product->getResource()->getAttribute($_code)->getFrontendLabel();
+}
+if ($_attributeType && $_attributeType == 'text') {
+    $_attributeValue = ($_helper->productAttribute($_product, $_product->$_call(), $_code)) ? $_product->getAttributeText($_code) : '';
+} else {
+    $_attributeValue = $_helper->productAttribute($_product, $_product->$_call(), $_code);
+}
+?>
+
+<?php if ($_attributeValue): ?>
+<div class="product attribute <?php /* @escapeNotVerified */ echo $_className?>">
+    <?php if ($_attributeLabel != 'none'): ?><strong class="type"><?php /* @escapeNotVerified */ echo $_attributeLabel?></strong><?php endif; ?>
+    <div class="value" <?php /* @escapeNotVerified */ echo $_attributeAddAttribute;?>><?php /* @escapeNotVerified */ echo $_attributeValue; ?></div>
+</div>
+<span class="clothing_fab" style="display:none;"><?php echo $_product->getResource()->getAttribute('fabric')->getFrontend()->getValue($_product); ?>
+</span>
+<span class="brand_fab" style="display:none;"><?php echo $_product->getResource()->getAttribute('brands')->getFrontend()->getValue($_product); ?>
+</span>
+<span class="clothing_included" style="display:none;"><?php echo $_product->getResource()->getAttribute('what_s_included')->getFrontend()->getValue($_product); ?>
+</span>
+<span class="clothing_access" style="display:none;"><?php echo $_product->getResource()->getAttribute('accessories')->getFrontend()->getValue($_product); ?>
+</span>
+<span class="clothing_techpsp" style="display:none;"><?php echo $_product->getResource()->getAttribute('technical_specification')->getFrontend()->getValue($_product); ?>
+</span>
+<span class="clothing_brands" style="display:none;"><?php echo $_product->getResource()->getAttribute('user_guides')->getFrontend()->getValue($_product); ?>
+</span>
+<?php endif; ?>

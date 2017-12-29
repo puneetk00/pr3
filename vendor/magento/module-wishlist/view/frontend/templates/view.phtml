@@ -1,0 +1,128 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Wishlist\Block\Customer\Wishlist */
+?>
+<style>
+#wishlist-view-form .products-grid.wishlist .product-item-photo {
+    border-right: 0px solid #eee;
+    float: left;
+    margin: 0 20px 0 10px;
+    padding: 10px;
+    width: auto;
+}
+.wishlistaction .actions-primary button.tocart 
+{
+	width:100%!important;
+}
+.product-item-actions .btn-remove.action.delete
+{
+	    padding: 0!important;
+    border: 0px solid #000;
+}
+.col-sm-3.col-lg-2.grid-left.leftSidebarFilters
+{
+	display:none;
+}
+.col-sm-9.col-lg-10.grid-main {
+    float: right;
+    max-width: 100%;
+    width: 100%;
+    flex-basis: 100%;
+}
+</style>
+
+<div class="loadingref" style="display:none;position: fixed;width: 100%;height: 100%;top: 0;left: 0;background: rgba(255,255,255,1);z-index: 9999999999;text-align: center;">
+	<div class="page-messages messages" style="margin-top: 15px;">
+		<div class="container">
+			<div data-placeholder="messages"></div>
+			<div data-bind="scope: 'messages'">
+    <div data-bind="foreach: { data: messages().messages, as: 'message' }" class="messages">
+        <div data-bind="attr: {
+            class: 'message-' + message.type + ' ' + message.type + ' message',
+            'data-ui-id': 'message-' + message.type
+        }" class="message-success success message" data-ui-id="message-success">
+            <div data-bind="html: message.text">
+Product has been added to your Wish List. </div>
+        </div>
+    </div>
+</div>
+
+</div></div>
+			<img style="width: 75px;margin-top: 150px;" src="http://modernbazaar.co.in/assets/images/icons/locate-loader.gif">
+		</div>
+<?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()) : ?>
+    <?php echo($block->getChildHtml('wishlist.rss.link'));?>
+    <form class="form-wishlist-items sdfds" id="wishlist-view-form"
+          data-mage-init='{"wishlist":{
+          "addToCartUrl":<?php /* @escapeNotVerified */ echo $block->getItemAddToCartParams("%item%");?>,
+          "confirmRemoveMessage":"<?php /* @escapeNotVerified */ echo __("Are you sure you want to remove this product from your Wish List?") ?>",
+          "addAllToCartUrl":<?php /* @escapeNotVerified */ echo $block->getAddAllToCartParams(); ?>,
+          "commentString":""},
+          "validation": {}}' action="<?php /* @escapeNotVerified */ echo $block->getUrl('wishlist/index/update', ['wishlist_id' => $block->getWishlistInstance()->getId()]) ?>" method="post">
+        <?php echo $block->getChildHtml('top'); ?>
+        <?php if ($block->hasWishlistItems()): ?>
+            <?php echo $block->getBlockHtml('formkey');?>
+            <?php $block->getChildBlock('items')->setItems($block->getWishlistItems()); ?>
+            <?php echo $block->getChildHtml('items');?>
+        <?php else: ?>
+            <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You have no items in your wish list.') ?></span></div>
+        <?php endif ?>
+        <?php echo $block->getChildHtml('bottom'); ?>
+        <!--div class="actions-toolbar">
+            <div class="primary">
+                <?php echo $block->getChildHtml('control_buttons');?>
+            </div>
+            <div class="secondary">
+                <a href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>" class="action back">
+                    <span><?php echo __('Back') ?></span>
+                </a>
+            </div>
+        </div-->
+    </form>
+    <script id="form-tmpl" type="text/x-magento-template">
+      <form id="wishlist-hidden-form" method="post" action="<%- data.url %>" class="no-display">
+          <% if (data.qty) { %>
+          <input name="qty" value="<%- data.qty %>">
+          <% } %>
+          
+          <% if (data.item) { %>
+          <input name="item" value="<%- data.item %>">
+          <% } %>
+          
+          <% if (data.entity) { %>
+          <input name="entity" value="<%- data.entity %>">
+          <% } %>
+      </form>
+  </script>
+<?php endif ?>
+
+ <script type="text/javascript">
+ require(['jquery'], function ($) {
+        $(document).ready(function(){
+			
+			 if (window.frames.length != parent.frames.length) { 
+			 $('.loadingref').show();
+			 $('form#wishlist-view-form').height('0px');
+			 $('.products-grid.wishlist').height('0px');
+			 
+			 top.location.reload(true);
+			//alert('page loaded in iframe'); 
+			/* $('.side-navbar').hide();
+			$('header.page-header').hide();
+			$('.specialcontainer').hide();
+			$('.page-footer').hide();
+			$('.page-footer__content').hide();
+			 */
+			//alert("the url of the top is" + top.location.href + "\nand not the url of this one is " + window.location.href );
+			} 
+			//alert('tetet');
+			//$('.side-navbar').hide();
+        });
+		}); 
+        </script>

@@ -1,0 +1,93 @@
+<?php
+/**
+ * Dkoder Infotech
+ * Dkoder Instagram Extension
+ * 
+ * @category   Dkoder
+ * @package    Solwin_Instagram
+ * @copyright  Copyright © 2006-2016 Dkoder
+ * @license    Dkoder
+ */
+$helper = $this->helper('\Solwin\Instagram\Helper\Data');
+$enable = $helper->getConfig('instagramsection/instagramgroup/active');
+$userId = $helper->getConfig('instagramsection/instagramgroup/userid');
+$accessToken = $helper->getConfig('instagramsection/instagramgroup/accesstoken');
+$imageResolution = $helper->getConfig('instagramsection/instagramgroup/selectimageresolution');
+$imageNumber = $this->getData('numberimage');
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+
+?>
+
+<?php
+if ($enable) {
+    ?>
+    <div class="cp-ftitle">
+        <h3><?php echo $this->getData('title'); ?></h3>
+        <a class="visible-xs cp-toggle collapsed" data-toggle="collapse" data-target="#cpcolumninstagram">
+            <span></span>
+        </a>
+    </div>
+    <div id="cpcolumninstagram" class="cp-fcontent">
+        <?php
+        $url = 'https://api.instagram.com/v1/users/' . $userId . '/media/recent/?access_token=' . $accessToken;
+        $args = stream_context_create(array('http' => array('timeout' => 2500,)));
+ 
+        $instagramFeedsData = file_get_contents($url, false, $args);
+
+        $instagramFeeds = json_decode($instagramFeedsData);
+
+        $instangramData = $instagramFeeds->data;
+        $count = 1;
+        foreach ($instangramData as $instagramFeed) {
+
+            if ($imageNumber < $count) {
+                break;
+            }
+            $instagramImage = $instagramFeed->images->$imageResolution->url;
+            $count++;
+            
+                $caption = $instagramFeed->caption->text;
+                $firsthastag = explode(' ',trim($caption)); //first hash tag
+                $updated_caption =  str_replace("#","",$firsthastag[0]);
+                $finalcaption =  str_replace("-"," ",$updated_caption); // hashtag to product name
+
+
+                $sql = "SELECT `entity_id` FROM `catalog_product_entity_varchar` WHERE (`value` LIKE '%".$finalcaption."%')";
+                $data = $connection->fetchAll($sql);
+
+                if(empty($data)){
+                    $productid = "";
+                }else{
+                    $productid = $data[0]['entity_id'];
+                }
+
+                
+                $url = $storeManager->getStore()->getBaseUrl()."weltpixel_quickview/catalog_product/view/id/".$productid;
+
+            ?>
+            <div class="instangram-feed">
+
+            <?php if(empty($productid)) { ?>
+                 <img src="<?php echo $instagramImage; ?>" title="<?php echo $finalcaption; ?>" alt="<?php echo $finalcaption; ?>"/>
+
+            <?php } else { ?>
+
+                <a class="weltpixel-quickview weltpixel_quickview_button_v2" data-quickview-url="<?php echo $url; ?>" href="javascript:void(0);"> <img src="<?php echo $instagramImage; ?>" title="<?php echo $finalcaption; ?>" alt="<?php echo $finalcaption; ?>"/>
+                    <div class="shop-now"> <span> Shop Now</span> </div>
+                </a>
+
+            <?php } ?>
+
+            </div>
+            <?php
+        }
+
+    }
+    ?>
+</div>

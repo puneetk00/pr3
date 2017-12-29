@@ -1,0 +1,61 @@
+<!--
+  ~ /**
+  ~  Copyright © 2016 Magestore. All rights reserved.
+  ~  See COPYING.txt for license details.
+  ~  */
+  -->
+<div class="item-outer-cont">
+	<div class="checkout-block row">
+	   <div class="col-md-4 col-xs-12">
+		<!-- ko foreach: getRegion('before_details') -->
+		<!-- ko template: getTemplate() --><!-- /ko -->
+		<!-- /ko -->
+		</div>
+		<div class="col-md-8 col-xs-12 text-left">
+			<div class="item-details">
+				<h5 class="dress-name" data-bind="text: $parent.name"></h5>
+				<h4 class="dress_price">
+					<!-- ko foreach: getRegion('after_details') -->
+					<!-- ko template: getTemplate() --><!-- /ko -->
+					<!-- /ko -->
+				</h4>
+				<a href="javascript:void(0);" data-bind="click: function(){getPrtid($parent)}, attr: { id: $parent.item_id }" class="move-to-wishlist" data-action='add-to-wishlist'> <i class="fa fa-heart-o"> </i> Move to wish list</a>
+
+				<div class="move-to-trash" data-bind="click: function(){deleteItem($parent)}"><i class="fa fa-trash-o"> </i>Move to trash</div>
+				<div class="row checkout-quantity-size">
+					<div class="col-sm-6 col-quantity">
+						<label class="fullLabel" for="qty">Qty</label>
+						<div class="box-qty" data-item-id="<?php echo $_item->getId(); ?>">
+							<label for="qty_input"></label>
+							<input  class="qty qty-item-display" data-bind="value: $parent.qty, event :{change: function(){updateNewQty($parent)}}"
+									id="qty_input" />
+							<div class="control-qty">
+								<div data-change-type="add" class="osc-add" data-bind="click: function(){addQty($parent)}"></div>
+								<div data-change-type="minus" class="osc-minus" data-bind="click: function(){minusQty($parent)}"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-size hide">
+						<label class="fullLabel" for="qty">Size</label>
+					<!-- ko if: (JSON.parse($parent.options).length > 0)-->
+						<dl class="item-options">
+							<!--ko foreach: JSON.parse($parent.options)-->
+							<dt class="label" data-bind="text: label"></dt>
+							<!-- ko if: ($data.full_view)-->
+							<dd class="values" data-bind="html: full_view"></dd>
+							<!-- /ko -->
+							<!-- ko ifnot: ($data.full_view)-->
+							<dd class="values" data-bind="html: value"></dd>
+							<!-- /ko -->
+							<!-- /ko -->
+						</dl>
+						<!-- /ko -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

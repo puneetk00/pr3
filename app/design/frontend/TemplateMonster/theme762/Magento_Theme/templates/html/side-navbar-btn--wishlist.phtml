@@ -1,0 +1,59 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+if(1== 1) { ?>
+<?php  
+    $in_wishlist = '';
+    $wishlist_collection = $this->helper('Magento\Wishlist\Helper\Data')->getWishlistItemCollection();
+
+	$wishcount = 0;
+	
+    foreach ( $wishlist_collection as $_wishlist_item){
+		$_wishlist_item->getProduct()->getId();
+		$wishcount++;
+	}
+	
+	?>
+	
+    <div class="side-navbar-box side-navbar-wishlist topbar-wish-opt"  data-bind="scope: 'wishlist'">
+	<?php
+	if($wishcount >= 1)
+	{
+		?>
+	<span class="totwishcount"><?php echo $wishcount; ?></span>
+	<?php } ?>
+        <a class="action towishlist topBarIcon topwishcount" href="<?php echo $this->getUrl('wishlist') ?>">
+		
+             <!-- ko if: wishlist().counter -->
+			 <!--span><?php echo $wishcount; ?></span-->
+             <!--span data-bind="text: wishlist().counter" class="wishlist_counter_qty"></span-->
+             <!-- /ko -->
+        </a>
+    </div>
+
+<?php } else { ?>
+
+    <div class="side-navbar-box side-navbar-wishlist topbar-wish-opt topwishcount1">
+        <a class="action towishlist topBarIcon" href="<?php echo $this->getUrl('wishlist') ?>">
+        </a>
+    </div>
+
+
+<?php } ?>
+
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "wishlist": {
+                        "component": "Magento_Wishlist/js/view/wishlist"
+                    }
+                }
+            }
+        }
+    }
+
+</script>
+

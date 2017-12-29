@@ -1,0 +1,64 @@
+<!-- <a href="<?php echo $this->getUrl('customer/account/login'); ?>" class="side-navbar-btn--link"><span></span></a> -->
+<button class="custommyaccountb_login" >
+    <span class="side-navbar-btn topBarIcon sign_in"></span>
+</button>
+
+<div class="custom_login hideus" style="display:none;">
+	<ul>
+		<li><a href="<?php echo $this->getUrl('customer/account/login'); ?>">Login</a></li>
+		<li><a href="<?php echo $this->getUrl('customer/account/create'); ?>">Register</a></li>
+	</ul>
+</div>
+
+
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        $(".topIcons-container > div").on('click',function(){
+            var asd = $(".nav-anchor").parent('li');
+            if(asd.hasClass("clicked")){
+                $('.clicked .submenu').hide();
+                asd.removeClass("clicked");
+            }
+        });
+        
+    	$("#mobile-switcher-currency-trigger").on('click',function(){
+            $(".custom_search").removeClass("active").hide();
+            $(".custom_myaccount").removeClass("active").hide();
+            $(".custom_login").removeClass("active").hide();
+
+        });
+
+        $("#mobile-switcher-language-trigger").on('click',function(){
+            $(".custom_search").removeClass("active").hide();
+            $(".custom_myaccount").removeClass("active").hide();
+            $(".custom_login").removeClass("active").hide();
+
+        });
+        $(".action.showcart.topBarIcon").on('click',function(){
+            $(".custom_search").removeClass("active").hide();
+            $(".custom_myaccount").removeClass("active").hide();
+            $(".custom_login").removeClass("active").hide();
+
+        });
+
+    	$(".custommyaccountb_login").on('click',function(){
+            var iParent = $(".nav-anchor").parent('li');
+            if(iParent.hasClass("clicked")){
+                $('.clicked .submenu').hide();
+                iParent.removeClass("clicked");
+            }
+            $(".custom_search").removeClass("active").hide();
+            $(".custom_myaccount").removeClass("active").hide();
+            
+    		if($(".custom_login").hasClass("active")){
+    			$(".custom_login").removeClass("active").hide();
+    		} else {
+    			$(".custom_login").addClass("active").show();
+    		}
+    		
+    	});
+
+    });
+</script>

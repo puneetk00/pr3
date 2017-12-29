@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+?>
+
+<strong class="product-item-name">
+    <a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($item) ?>" title="<?php echo $block->escapeHtml($product->getName()) ?>" class="product-item-link">
+        <?php echo $block->escapeHtml($product->getName()) ?>
+    </a>
+</strong>
+<p class="attrname"><?php echo $product->getAttributeText('collections'); ?></p>
+<p class="sizeattr"><?php echo $product->getAttributeText('size'); ?></p>
+<div class="price-box price-final_price" data-role="priceBox" data-product-id="<?php echo $product->getId() ;?>" style="float: left;width: auto;">
+	<span class="price-container price-final_price tax weee"> 
+        <span class="price">
+		<?php /* @escapeNotVerified */ echo $block->getProductPrice($product); ?>
+		</span>    
+	</span>
+
+</div>
+
+</div>
+</div>

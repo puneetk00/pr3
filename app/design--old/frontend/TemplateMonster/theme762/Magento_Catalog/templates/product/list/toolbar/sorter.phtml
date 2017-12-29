@@ -1,0 +1,88 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+use Magento\Catalog\Model\Product\ProductList\Toolbar;
+?>
+<div class="toolbar-sorter sorter field">
+    <label class="sorter-label label" for="sorter"><?php echo __('Sort By') ?></label>
+    <div class="control">
+        <select id="sorter" data-role="sorter" class="sorter-options">
+
+            <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+            <?php if($_order != 'Price'): ?>
+            <option value="<?php /* @escapeNotVerified */ echo $_key; ?>"
+                <?php if ($block->isOrderCurrent($_key)): ?>
+                    selected="selected"
+                <?php endif; ?>
+                >
+                <?php if($block->escapeHtml(__($_order)) == "Position" || $block->escapeHtml(__($_order)) == "Relevance") { ?>
+                    <?php echo "Popularity"; ?>
+                 <?php } else { ?>
+                    <?php echo $block->escapeHtml(__($_order)) ?>
+                 <?php } ?>
+            </option>
+        <?php endif; ?>
+        <?php endforeach; ?>
+        <?php 
+            $url = $_SERVER['REQUEST_URI'];
+            $path = strstr($url, '?'); 
+        ?>
+        <option 
+            <?php if($path == '?product_list_order=price&product_list_dir=asc'): ?>
+                selected="selected" 
+            <?php endif; ?> 
+            class="low-high" value="low-high" >
+            Price - Low to High
+        </option>
+        <option 
+            <?php if($path == '?product_list_order=price&product_list_dir=desc'): ?>
+                selected="selected" 
+            <?php endif; ?> 
+            class="high-low" value="high-low" >
+            Price - High to Low
+        </option>
+        </select>
+    </div>
+    <?php if ($block->getCurrentDirection() == 'desc'): ?>
+        <a title="<?php echo __('Set Ascending Direction') ?>" href="#" class="action sorter-action sort-desc" data-role="direction-switcher" data-value="asc">
+            <span><?php echo __('Asc') ?></span>
+        </a>
+    <?php else: ?>
+        <a title="<?php echo __('Set Descending Direction') ?>" href="#" class="action sorter-action sort-asc" data-role="direction-switcher" data-value="desc">
+            <span><?php echo __('Desc') ?></span>
+        </a>
+    <?php endif; ?>
+</div>
+
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+            ascUrl = '<?php echo '?product_list_order=price&product_list_dir=asc'; ?>';
+            descUrl = '<?php echo '?product_list_order=price&product_list_dir=desc'; ?>';
+
+            jQuery(".low-high").click(function(){
+                window.location = ascUrl;
+
+            });
+
+            jQuery(".high-low").click(function(){
+                window.location = descUrl;
+
+            });
+
+    });
+</script>

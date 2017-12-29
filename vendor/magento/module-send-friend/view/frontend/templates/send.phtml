@@ -1,0 +1,348 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Send to friend form
+ *
+ * @var $block \Magento\SendFriend\Block\Send
+ */
+?>
+<?php 
+	  $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	  if (strpos($actual_link,'sendfriend') !== false) {
+		
+		//echo '<pre>'; print_r($_POST['sender']);
+		//echo '<pre>'; print_r($_POST['recipients']);
+		//var_dump($_POST['sender']);
+		$senderval = $_POST['sender'];
+		$recval = $_POST['recipients'];
+		$se_name = $senderval['name'];
+		$se_email = $senderval['email'];
+		$se_msg = $senderval['message'];
+		$re_name = $recval['name'][0];
+		$re_email = $recval['email'][0];
+		
+		} else {
+		//echo 'No.';
+		}
+	  ?>
+<script id="add-recipient-tmpl" type="text/x-magento-template">
+    <div class="actions-toolbar">
+        <div class="secondary">
+            <button type="button" id="btn-remove<%- data._index_ %>" class="action remove"
+               title="<?php /* @escapeNotVerified */ echo $block->escapeJsQuote(__('Remove Recipent')) ?>">
+               <span><?php /* @escapeNotVerified */ echo $block->escapeJsQuote(__('Remove')) ?></span>
+            </button>
+        </div>
+    </div>
+	<?php  if (strpos($actual_link,'sendfriend') !== false) {
+		
+	?>
+    <fieldset class="fieldset">
+        <div class="field name required">
+            <label for="recipients-name<%- data._index_ %>" class="label"><span><?php /* @escapeNotVerified */ echo __('Name')?></span></label>
+            <div class="control">
+                <input name="recipients[name][<%- data._index_ %>]" type="text" title="<?php /* @escapeNotVerified */ echo __('Name') ?>" value="<?php echo $re_name; ?>" class="input-text"
+                       id="recipients-name<%- data._index_ %>" data-validate="{required:true}" placeholder="First Name"/>
+            </div>
+        </div>
+
+        <div class="field email required">
+            <label for="recipients-email<%- data._index_ %>" class="label"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+            <div class="control">
+                <input name="recipients[email][<%- data._index_ %>]" title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
+                       id="recipients-email<%- data._index_ %>" type="email" value="<?php echo $re_email; ?>" class="input-text"
+                       data-validate="{required:true, 'validate-email':true}" placeholder="Enter your friend email address"/>
+            </div>
+        </div>
+    </fieldset>
+	<?php } else { ?>
+	 <fieldset class="fieldset">
+        <div class="field name required">
+            <label for="recipients-name<%- data._index_ %>" class="label"><span><?php /* @escapeNotVerified */ echo __('Name')?></span></label>
+            <div class="control">
+                <input name="recipients[name][<%- data._index_ %>]" type="text" title="<?php /* @escapeNotVerified */ echo __('Name') ?>" class="input-text"
+                       id="recipients-name<%- data._index_ %>" data-validate="{required:true}" placeholder="First Name"/>
+            </div>
+        </div>
+
+        <div class="field email required">
+            <label for="recipients-email<%- data._index_ %>" class="label"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+            <div class="control">
+                <input name="recipients[email][<%- data._index_ %>]" title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
+                       id="recipients-email<%- data._index_ %>" type="email" class="input-text"
+                       data-validate="{required:true, 'validate-email':true}" placeholder="Enter your friend email address"/>
+            </div>
+        </div>
+    </fieldset>
+	<?php 
+	}
+	?>
+</script>
+<?php  if (strpos($actual_link,'sendfriend') !== false) {
+		
+	?>
+<form action="<?php /* @escapeNotVerified */ echo $block->getSendUrl() ?>" method="post" id="product-sendtofriend-form"
+      data-mage-init='{
+        "rowBuilder":{
+            "rowTemplate":"#add-recipient-tmpl",
+            "rowContainer":"#recipients-options",
+            "rowParentElem":"<div></div>",
+            "remEventSelector":"button",
+            "btnRemoveSelector":".action.remove",
+            "maxRows":"<?php /* @escapeNotVerified */ echo $block->getMaxRecipients() ?>",
+            "maxRowsMsg":"#max-recipient-message",
+            "addRowBtn":"#add-recipient-button",
+            "additionalRowClass":"additional"},
+        "validation":{}}'
+      class="form send friend product-sendtofriend-form" data-hasRequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+	  
+	  
+		<div class="loadingref" style="position: absolute;width: 100%;height: 100%;top: 0;left: 0;background: rgba(255,255,255,0.9);z-index: 9;text-align: center;">
+			<img style="width: 75px;" src="http://modernbazaar.co.in/assets/images/icons/locate-loader.gif">
+		</div>
+    <fieldset class="fieldset sender" id="sender_options">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <!--legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Sender') ?></span></legend>
+        <br-->
+        <div class="field sender required">
+            <!--label for="sender-name" class="label"><span><?php /* @escapeNotVerified */ echo __('Name') ?></span></label-->
+            <div class="control">
+			<?php
+			$loguserna = $block->escapeHtml($block->getUserName());
+			$logemail = $block->escapeHtml($block->getEmail());
+			if($loguserna != '')
+			{
+				$fildval = $loguserna;
+			}
+			elseif($se_name != '')
+			{
+				$fildval = $se_name;
+			}
+			else
+			{
+				$fildval = '';
+			}
+			
+			if($logemail != '')
+			{
+				$fildvall = $logemail;
+			}
+			elseif($se_email != '')
+			{
+				$fildvall = $se_email;
+			}
+			else
+			{
+				$fildvall = '';
+			}
+			if($se_msg != '')
+			{
+				$fildvalll = $se_msg;
+			}
+			
+			else
+			{
+				$fildvalll = '';
+			}
+			?>
+                <input name="sender[name]" value="<?php echo $fildval; ?>"
+                       title="<?php /* @escapeNotVerified */ echo __('Name') ?>" id="sender-name" type="text" class="input-text"
+                       data-validate="{required:true}" placeholder="First Name"/>
+            </div>
+        </div>
+
+        <div class="field email required">
+            <!--label for="sender-email" class="label"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label-->
+            <div class="control">
+                <input name="sender[email]" value="<?php echo $fildvall; ?>"
+                       title="<?php /* @escapeNotVerified */ echo __('Email') ?>" id="sender-email" type="text" class="input-text"
+                       data-validate="{required:true, 'validate-email':true}" placeholder="Your email address"/>
+            </div>
+        </div>
+
+       
+    </fieldset>
+
+    <fieldset class="fieldset recipients">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <!--legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Invitee') ?></span></legend>
+        <br /-->
+        <div id="recipients-options"></div>
+		 <div class="field text required">
+            <!--label for="sender-message" class="label"><span><?php /* @escapeNotVerified */ echo __('Message') ?></span></label-->
+            <div class="control">
+                <textarea name="sender[message]" class="input-text" id="sender-message" cols="3" rows="3"
+                          data-validate="{required:true}" placeholder="Dimples is one of my favourite places to shop for high-quality babywear and accessories - Iknow you're going to love them too."><?php echo $fildvalll; ?><?php //echo $block->escapeHtml($block->getMessage()) ?></textarea>
+            </div>
+        </div>
+        <?php if ($block->getMaxRecipients()): ?>
+            <div id="max-recipient-message" style="display: none;" class="message notice limit" role="alert">
+                <span><?php /* @escapeNotVerified */ echo __('Maximum %1 email addresses allowed.', $block->getMaxRecipients()) ?></span>
+            </div>
+        <?php endif; ?>
+        <div class="actions-toolbar">
+            <div class="secondary">
+            <?php if (1 < $block->getMaxRecipients()): ?>
+                <button type="button" id="add-recipient-button" class="action add">
+                    <span><?php /* @escapeNotVerified */ echo __('Add Invitee') ?></span></button>
+            <?php endif; ?>
+            </div>
+        </div>
+    </fieldset>
+	<div class="bee-icon">
+              <img src="http://staging.dimples.co.nz/media/email/template/honeybee.png">
+              </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit"
+                    class="action submit primary"<?php if (!$block->canSend()): ?> disabled="disabled"<?php endif ?>>
+                <span><?php /* @escapeNotVerified */ echo __('SEND TO FRIEND') ?></span></button>
+        </div>
+        <!--div class="secondary">
+            <a class="action back" href="#" role="back"><span><?php /* @escapeNotVerified */ echo __('Back') ?></span></a>
+        </div-->
+    </div>
+</form>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function ($, modal) {
+	 var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+var techfreind = getUrlParameter('referfriend');
+//alert(techfreind);	
+	setTimeout(function() {
+		
+		$(".product-sendtofriend-form").submit();
+		//$('.loadingref').hide();
+	}, 5000); 
+		
+	});
+</script>
+<?php } else { ?>
+
+<form action="<?php /* @escapeNotVerified */ echo $block->getSendUrl() ?>" method="post" id="product-sendtofriend-form"
+      data-mage-init='{
+        "rowBuilder":{
+            "rowTemplate":"#add-recipient-tmpl",
+            "rowContainer":"#recipients-options",
+            "rowParentElem":"<div></div>",
+            "remEventSelector":"button",
+            "btnRemoveSelector":".action.remove",
+            "maxRows":"<?php /* @escapeNotVerified */ echo $block->getMaxRecipients() ?>",
+            "maxRowsMsg":"#max-recipient-message",
+            "addRowBtn":"#add-recipient-button",
+            "additionalRowClass":"additional"},
+        "validation":{}}'
+      class="form send friend" data-hasRequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+	  
+	  
+    <fieldset class="fieldset sender" id="sender_options">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <!--legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Sender') ?></span></legend>
+        <br-->
+        <div class="field sender required">
+            <!--label for="sender-name" class="label"><span><?php /* @escapeNotVerified */ echo __('Name') ?></span></label-->
+            <div class="control">
+			
+                <input name="sender[name]" value="<?php echo $block->escapeHtml($block->getUserName()); ?>"
+                       title="<?php /* @escapeNotVerified */ echo __('Name') ?>" id="sender-name" type="text" class="input-text"
+                       data-validate="{required:true}" placeholder="First Name"/>
+            </div>
+        </div>
+
+        <div class="field email required">
+            <!--label for="sender-email" class="label"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label-->
+            <div class="control">
+                <input name="sender[email]" value="<?php echo $block->escapeHtml($block->getEmail()); ?>"
+                       title="<?php /* @escapeNotVerified */ echo __('Email') ?>" id="sender-email" type="text" class="input-text"
+                       data-validate="{required:true, 'validate-email':true}" placeholder="Your email address"/>
+            </div>
+        </div>
+
+       
+    </fieldset>
+
+    <fieldset class="fieldset recipients">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <!--legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Invitee') ?></span></legend>
+        <br /-->
+        <div id="recipients-options"></div>
+		 <div class="field text required">
+            <!--label for="sender-message" class="label"><span><?php /* @escapeNotVerified */ echo __('Message') ?></span></label-->
+            <div class="control">
+                <textarea name="sender[message]" class="input-text" id="sender-message" cols="3" rows="3"
+                          data-validate="{required:true}" placeholder="Dimples is one of my favourite places to shop for high-quality babywear and accessories - Iknow you're going to love them too."><?php echo $block->escapeHtml($block->getMessage()) ?></textarea>
+            </div>
+        </div>
+        <?php if ($block->getMaxRecipients()): ?>
+            <div id="max-recipient-message" style="display: none;" class="message notice limit" role="alert">
+                <span><?php /* @escapeNotVerified */ echo __('Maximum %1 email addresses allowed.', $block->getMaxRecipients()) ?></span>
+            </div>
+        <?php endif; ?>
+        <div class="actions-toolbar">
+            <div class="secondary">
+            <?php if (1 < $block->getMaxRecipients()): ?>
+                <button type="button" id="add-recipient-button" class="action add">
+                    <span><?php /* @escapeNotVerified */ echo __('Add Invitee') ?></span></button>
+            <?php endif; ?>
+            </div>
+        </div>
+    </fieldset>
+	<div class="bee-icon">
+              <img src="http://staging.dimples.co.nz/media/email/template/honeybee.png">
+              </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit"
+                    class="action submit primary"<?php if (!$block->canSend()): ?> disabled="disabled"<?php endif ?>>
+                <span><?php /* @escapeNotVerified */ echo __('SEND TO FRIEND') ?></span></button>
+        </div>
+        <!--div class="secondary">
+            <a class="action back" href="#" role="back"><span><?php /* @escapeNotVerified */ echo __('Back') ?></span></a>
+        </div-->
+    </div>
+</form>
+<?php 
+	}
+	?>
+<script type="text/x-magento-init">
+    {
+        "a[role='back']": {
+            "Magento_SendFriend/back-event": {}
+        }
+    }
+</script>
+
+<style>
+#recipients-options label
+{
+	display:none;
+}
+#max-recipient-message
+{
+	clear:both;
+}
+#product-sendtofriend-form {
+    overflow: hidden;
+}
+</style>

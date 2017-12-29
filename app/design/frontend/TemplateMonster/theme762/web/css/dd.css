@@ -1,0 +1,232 @@
+/*.borderRadius{-moz-border-radius:5px; border-radius:5px; }
+.borderRadiusTp{-moz-border-radius:5px 5px 0 0; border-radius:5px 5px 0 0;}
+.borderRadiusBtm{-moz-border-radius:0 0 5px 5px ; border-radius:0 0 5px 5px;}
+
+.ddcommon {position:relative;display:-moz-inline-stack; zoom:1; display:inline-block; *display:inline; cursor:default;}
+.ddcommon ul{padding:0;margin:0;}
+.ddcommon ul li{list-style-type:none;}
+.borderRadiusTp ul li:last-child{-moz-border-radius:0 0 5px 5px ; border-radius:0 0 5px 5px;border-bottom:0 none #c3c3c3; }
+.borderRadiusBtm ul li:first-child{-moz-border-radius:5px 5px 0 0; border-radius:5px 5px 0 0 ;border-bottom:1 solid #c3c3c3; }
+
+.ddcommon .disabled img, .ddcommon .disabled span, .ddcommon.disabledAll{
+opacity: .5;
+-ms-filter:"alpha(opacity=50)";
+filter:alpha(opacity=50);
+-khtml-opacity:.5;
+-moz-opacity:.5;
+color:#999999;
+}
+.ddcommon .clear{clear:both}
+.ddcommon .shadow{-moz-box-shadow:5px 5px 5px -5px #888888;-webkit-box-shadow:5px 5px 5px -5px #888888;box-shadow: 5px 5px 5px -5px #888888;}
+.ddcommon input.text{color:#7e7e7e;padding:0 0 0 0; position:absolute; background:#fff; display:block; width:98%; height:98%; left:2px; top:0; border:none;}
+.ddOutOfVision{position:relative; display:-moz-inline-stack; display:inline-block; zoom:1; *display:inline;}
+.borderRadius .shadow{-moz-box-shadow:5px 5px 5px -5px #888888;-webkit-box-shadow:5px 5px 5px -5px #888888;box-shadow: 5px 5px 5px -5px #888888;}
+.borderRadiusBtm .shadow{-moz-box-shadow:-5px -5px 5px -5px #888888;-webkit-box-shadow:-5px -5px 5px -5px #888888;box-shadow: -5px -5px 5px -5px #888888}
+.borderRadiusTp .border, .borderRadius .border{-moz-border-radius:0 0 5px 5px ; border-radius:0 0 5px 5px;}
+.borderRadiusBtm .border{-moz-border-radius:5px 5px 0 0; border-radius:5px 5px 0 0;}
+img.fnone{float:none !important}
+.ddcommon .divider{width:0; height:100%; position:absolute;}
+.ddcommon .ddArrow{display:inline-block; position:absolute; top:50%; right:4px;}
+.ddcommon .ddArrow:hover{background-position:0 100%;}
+.ddcommon .ddTitle{padding:0; position:relative; display:inline-block; width:100%}
+.ddcommon .ddTitle .ddTitleText{display:block;}
+.ddcommon .ddTitle .ddTitleText .ddTitleText{padding:0;}
+.ddcommon .ddTitle .description{display:block;}
+.ddcommon .ddTitle .ddTitleText img{position:relative; vertical-align:middle; float:left}
+.ddcommon .ddChild{position:absolute;display:none;width:100%;overflow-y:auto; overflow-x:hidden; zoom:1; z-index:9999}
+.ddcommon .ddChild li{clear:both;}
+.ddcommon .ddChild li .description{display:block;}
+.ddcommon .ddChild li img{border:0 none; position:relative;vertical-align:middle;float:left}
+.ddcommon .ddChild li.optgroup{padding:0;}
+.ddcommon .ddChild li.optgroup .optgroupTitle{padding:0 5px; font-weight:bold; font-style:italic}
+.ddcommon .ddChild li.optgroup ul li{padding:5px 5px 5px 15px}
+.ddcommon .noBorderTop{border-top:none 0  !important; padding:0; margin:0;}*/
+
+/*************** default theme **********************/
+/*.dd{border:1px solid #c3c3c3;}
+.dd .divider{border-left:1px solid #c3c3c3; border-right:1px solid #fff;; right:24px;}
+.dd .ddArrow{width:16px;height:16px; margin-top:-8px; background:url(../images/dd_arrow.gif) no-repeat;}
+.dd .ddArrow:hover{background-position:0 100%;}*/
+/*
+.dd .ddTitle{color:#000;background:#e2e2e4 url(../images/dd_title-bg.gif) repeat-x left top;}
+*/
+/*.dd .ddTitle .ddTitleText{padding:5px 20px 5px 5px;}
+.dd .ddTitle .ddTitleText .ddTitleText{padding:0;}
+.dd .ddTitle .description{font-size:12px; color:#666}
+.dd .ddTitle .ddTitleText img{padding-right:5px;}
+.dd .ddChild{border:1px solid #c3c3c3; background-color:#fff; left:-1px;}
+.dd .ddChild li{padding:5px; background-color:#fff; border-bottom:1px solid #c3c3c3;}
+.dd .ddChild li .description{color:#666;}
+.dd .ddChild li .ddlabel{color:#333;}
+.dd .ddChild li.hover{background-color:#f2f2f2}
+.dd .ddChild li img{padding:0 6px 0 0;}
+.dd .ddChild li.optgroup{padding:0;}
+.dd .ddChild li.optgroup .optgroupTitle{padding:0 5px; font-weight:bold; font-style:italic}
+.dd .ddChild li.optgroup ul li{padding:5px 5px 5px 15px}
+.dd .ddChild li.selected{background-color:#d5d5d5; color:#000;}
+.dd .ddcolor { padding: 0px 9px; margin-right: 4px; border: solid #ccc 1px; }*/
+
+
+
+
+
+.one-step-checkout.custom_s_checkout .wrap-col-last-3 {padding:0px;} 
+.one-step-checkout.custom_s_checkout .address-info-3-columns {margin-right: 0px;}
+
+.one-step-checkout.custom_s_checkout .default-box.checkout-review-load {border:none;}
+
+
+.one-step-checkout .address-information .shipping_address.checkout-shipping-address {border:none;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .order-review-section {border:none;}
+
+
+.one-step-checkout.custom_s_checkout #review_step_header, .one-step-checkout .address-information .shipping_address.checkout-shipping-address .step-title,
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .order-review-section #payment_method_step_header {background:none;text-align: center;color:#000!important;font-size: 13px !important;border-bottom: 1px solid #e0e0e0;margin-bottom: 20px;}
+
+.checkout-quantity-size .col-size .fullLabel
+{
+	display:none!important;
+}
+.checkout-quantity-size .col-size dl.item-options
+{
+	display:block;
+}
+.col-size.hide
+{
+	display:block!important;
+}
+.one-step-checkout.custom_s_checkout .checkout-block .fa.fa-trash-o, .one-step-checkout.custom_s_checkout .checkout-block .fa.fa-heart-o {height: 18px;text-align:left;cursor:pointer;}
+.one-step-checkout.custom_s_checkout .checkout-block .fa.fa-heart-o {width:22px;}
+.one-step-checkout.custom_s_checkout .checkout-block .fa.fa-trash-o {text-indent: 2px;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review {margin-right:0px;}
+
+.one-step-checkout.custom_s_checkout .checkout-block .item-details .dress-name {color:#464646;font-size: 14px;font-weight: bold;margin-top:0px;}
+.one-step-checkout.custom_s_checkout .checkout-block .item-details .dress_price {border:none;margin-bottom: 15px;}
+
+
+.one-step-checkout.custom_s_checkout .checkout-block .item-details .checkout-quantity-size{margin-top:5px;}
+.one-step-checkout.custom_s_checkout .checkout-block .item-details .checkout-quantity-size .fullLabel {width:100%;display:block;line-height:normal;}
+.one-step-checkout.custom_s_checkout .checkout-block .item-details .checkout-quantity-size input#qty_input {margin:0px;padding-right:20px;width:100%;float: none;}
+.one-step-checkout.custom_s_checkout .checkout-block .item-details .checkout-quantity-size .col-quantity .box-qty {position:relative;}
+.one-step-checkout.custom_s_checkout .checkout-block .item-details .checkout-quantity-size .col-quantity .box-qty .control-qty{position:absolute;bottom:0px;right:0px;}
+
+.one-step-checkout.custom_s_checkout .item-outer-cont, .one-step-checkout.custom_s_checkout .step-content#checkout-step-shipping, .one-step-checkout.custom_s_checkout .order-review-section .payment-method .onestepcheckout-payment-methods {padding:10px;background:#fff;width: 100%;}
+
+.one-step-checkout.custom_s_checkout .order-review-section .payment-method .onestepcheckout-payment-methods {box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;-ms-box-sizing: border-box;}
+.one-step-checkout.custom_s_checkout .address-information .fieldset .field {padding: 5px 0px;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form{clear: both;padding: 10px;padding-right: 120px;position: relative;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .input-box{width: 100%;float: none;    padding-top: 30px;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .actions-button{position: absolute;top:40px;right: 10px;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .actions-button #add_coupon_code_button{height:42px;}
+
+
+.one-step-checkout.custom_s_checkout #shipping input ~ label , .one-step-checkout.custom_s_checkout #shipping input:focus ~ label, .one-step-checkout.custom_s_checkout #shipping select:focus ~ label, .one-step-checkout.custom_s_checkout #shipping input.input-text:valid ~ label, .one-step-checkout.custom_s_checkout #shipping select ~ label, .one-step-checkout.custom_s_checkout #shipping .field label, .one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .input-box label, .one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .input-box input.input-text:focus ~ label {top:0px;color: #000;text-transform:initial;font-weight: 400;font-size: 14px!important;left:0px !important;}
+
+.one-step-checkout.custom_s_checkout #checkout-step-shipping .control {padding-top: 25px;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .input-box input.input-text, .one-step-checkout.custom_s_checkout #shipping input.input-text, .one-step-checkout.custom_s_checkout #shipping select {border: 1px solid #000;padding: 6px 20px!important;height: 42px !important;color:#000;font-weight: 400;font-size: 12px !important;}
+
+
+.one-step-checkout.custom_s_checkout #shipping .two-fields, .one-step-checkout.custom_s_checkout #shipping .one-field, .one-step-checkout.custom_s_checkout .address-info-3-columns form .field  {margin: 0px 0 5px !important;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .input-box input.input-text#discount-code {padding: 4px 20px!important;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set {padding: 0px 10px;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set #onestepcheckout-button-place-order span, .one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review button#add_coupon_code_button span{color: #000!important;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set #onestepcheckout-button-place-order:hover span, .one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review button#add_coupon_code_button:hover span{color: #fff!important;}
+
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set table.data-table th {text-align: left;background:#fff;border:none;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set table.data-table td {border:none;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set table .grand .mark {background-color:#fff!important;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set table .grand.totals th strong{font-size: 13px;font-weight: normal;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set table .grand.totals td strong span{font-size: 13px;color: #000;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set .btn-proceed-checkout.onestepcheckout-btn-checkout.onestepcheckout-place {width:100%!important;}
+
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .actions-button #add_coupon_code_button, .one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set .btn-proceed-checkout.onestepcheckout-btn-checkout.onestepcheckout-place {background:#fff!important;border: 1px solid #000;color: #000!important;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none;}
+
+
+
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review #payment #co-payment-form .payment-method-content .form-alt {padding: 10px 10px 10px 15px!important;border: 1px solid #c89d6f;border-left: 4px solid #c89d6f;margin-top:20px;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review #payment #co-payment-form .payment-method .payment-method-title{padding: 0px;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review #payment #co-payment-form .payment-method-content .field.choice.checkbox-group{padding-top: 0px;}
+
+.one-step-checkout.custom_s_checkout #review_step_header:before{margin-left:0px;margin-right:10px;content:"";background:url('../images/shopping-cart.svg');background-size:28px auto;background-repeat:no-repeat;background-position:center center;background-color:transparent!important;position: relative;top: -2px;} 
+.one-step-checkout .address-information .shipping_address.checkout-shipping-address .step-title:before {margin-left:0px;margin-right:10px;content:"";background:url('../images/truck.svg');background-size:30px auto;background-repeat:no-repeat;background-position:center center;background-color:transparent!important;position: relative;top: -2px;}
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .order-review-section #payment_method_step_header:before {margin-left:0px;margin-right:10px;content:"";background:url('../images/credit-card.svg');background-size:30px auto;background-repeat:no-repeat;background-position:center center;background-color:transparent!important;position: relative;top: -2px;}
+
+.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set #onestepcheckout-button-place-order:hover, .one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .actions-button #add_coupon_code_button:hover {background:#000!important; opacity:1 !important;}
+
+
+#one-step-checkout-form #onestepcheckout-payment-methods label {
+    color: #000;
+}
+.sercurity-box input.input-text, .gift-messages-form input.input-text, .shipping-region-input, .billing-region-input, #onestepcheckout-login-popup input.input-text, .onestepcheckout-discount .discount-form input.input-text, #shipping input.input-text, #billing-new-address-form input.input-text, .virtualCheckout .email-field input.input-text{border:solid 1px #000 !important; padding:2px 15px !important;}
+.control.negTop25 {
+    padding-top: 25px !important;
+}
+
+#shipping .email-has-data ~ label, .sercurity-box .input-box input:focus ~ label, .sercurity-box input.input-text:valid ~ label, .gift-messages-form .input-box input:focus ~ label, .gift-messages-form input.input-text:valid ~ label, #onestepcheckout-login-popup input:focus ~ label, #onestepcheckout-login-popup input.input-text:valid ~ label, .onestepcheckout-discount .discount-form input:focus ~ label, .onestepcheckout-discount .discount-form input.input-text:valid ~ label, #shipping input:focus ~ label, #shipping input.input-text:valid ~ label, #billing-new-address-form input.input-text:valid ~ label, #shipping input:disabled ~ label, #shipping select:valid ~ label, #billing-new-address-form input:valid ~ label, #billing-new-address-form input:focus ~ label, #billing-new-address-form select:valid ~ label, .field legend.label, .virtualCheckout .email-field input:valid ~ label, .virtualCheckout .email-field input:focus ~ label, .onestepcheckout-giftmessage .control input:focus ~ label, .onestepcheckout-giftmessage .control textarea:focus ~ label{font-size:14px !important;}
+
+#shipping select, #shipping-address-select, #billing-address-select, #billing-new-address-form select {
+    width: 100% !important;
+    height: auto !important;
+    font-size: 14px !important;
+    padding-right: 20px !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: solid 1px #000 !important;
+}
+
+@media screen and (max-width:991px){
+	.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form {padding-right: 30px;}
+	.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .actions-button {position:initial;}
+	.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form .actions-button #add_coupon_code_button {display: block;width: 100%;}
+	
+	.one-step-checkout.custom_s_checkout .item-outer-cont, .one-step-checkout.custom_s_checkout .step-content#checkout-step-shipping, .one-step-checkout.custom_s_checkout .order-review-section .payment-method .onestepcheckout-payment-methods {padding:10px 15px;}
+	.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .discount-form {padding:10px 15px;}
+	.one-step-checkout.custom_s_checkout .onestepcheckout-shipping-payment-review .button-set {padding: 0px 15px;}
+	.one-step-checkout.custom_s_checkout .checkout-block .item-details .checkout-quantity-size .col-quantity .box-qty {
+    position: relative;
+    display: inline-block;
+}
+
+
+}
+
+
+@media (min-width:768px) and (max-width:1000px) {
+.three-columns-new-osc .wrap-col-last-3 {
+    width: 33% !important;
+		float:left;
+}
+
+.one-step-checkout.three-columns-new-osc .address-info-3-columns {
+    width: 32% !important;
+}
+
+.field .control._with-tooltip {
+    padding-top: 25px;
+}
+
+.one-step-checkout.three-columns-new-osc .onestepcheckout-shipping-payment-review {
+    float: left;
+    width: 32% !important;
+    margin-right: 0%;
+}
+.order-review-section {
+    float: left;
+    width: 100% !important;
+}
+
+}
+

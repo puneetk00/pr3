@@ -1,0 +1,122 @@
+<?php
+/** 
+ * @copyright   Copyright (c) http://www.manadev.com
+ * @license     http://www.manadev.com/license  Proprietary License
+ */
+/**
+ * @var $block \Manadev\LayeredNavigation\Blocks\Navigation
+ *
+ * Based on app/code/Magento/LayeredNavigation/view/frontend/templates/layer/view.phtml (diff to check
+ * what has changed).
+ */
+?>
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+      $current_category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
+      $parent_category = $current_category->getParentCategory();
+	 // echo $current_category->getId();
+	  $pathids = $current_category->getPathIds();
+	 // print_r($pathids);
+	  if(in_array(4,$pathids)){ ?>
+		  <style>
+		  .options-item-Collections{display:none;}
+		  .options-item-Fabric{display:none;}
+		  .options-item-Size{display:none;}
+		  </style>
+	<?php  }
+	  ?>
+	   <?php if(in_array(5,$pathids)){ ?>
+		  <style>
+		  .options-item-Collections{display:none;}
+		  .options-item-Price{display:none;}
+		  </style>
+	<?php  }
+	  ?>
+	  	   <?php if(in_array(6,$pathids)){ ?>
+		  <style>
+		  .options-item-Collections{display:none;}
+		  .options-item-Price{display:none;}
+		  </style>
+	<?php  }
+	  ?>
+     <?php if(in_array(14,$pathids)){ ?>
+		  <style>
+		  .options-item-Collections{display:none;}
+		  </style>
+	<?php  }
+	  ?>
+	       <?php if(in_array(15,$pathids)){ ?>
+		  <style>
+		  .options-item-Collections{display:none;}
+		  </style>
+	<?php  }
+	  ?>
+<?php if ($block->isVisible()): ?>
+    <div id="show_hide_sidebar">Refine<i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+    <div class="block filter mana-filter-block" data-mage-init='{ "Manadev_LayeredNavigation/js/NavigationView": {} }'>
+        <div class="block-title filter-title">
+            <strong><?php //echo __('Shop By') ?></strong>
+        </div>
+
+        <div class="block-content filter-content" id="navigation_sidebar">
+            <?php if ($block->hasState() && $block->isAppliedFilterVisible()) : ?>
+                <div class="filter-current">
+                    <strong class="block-subtitle filter-current-subtitle" role="heading" aria-level="2" data-count="<?php echo $block->getAppliedOptionCount() ?>"><?php echo __('Now Shopping by') ?></strong>
+                    <ol class="items dfdf">
+                        <?php foreach ($block->getAppliedFilters() as $engineFilter): ?>
+                            <?php foreach ($engineFilter->getAppliedItems() as $item) : ?>
+                                <li class="item"><?php echo $block->renderAppliedItem($engineFilter, $item) ?></li>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </ol>
+                </div>
+
+                <!-- <div class="block-actions filter-actions">
+                    <a href="<?php echo $block->getClearUrl() ?>"<?php echo $block->getClearLinkAttributes() ?> class="action clear filter-clear"><span><?php echo __('Clear All') ?></span></a>
+                </div> -->
+            <?php endif; ?>
+
+            <strong role="heading" aria-level="2" class="block-subtitle filter-subtitle"><?php //echo __('Shopping Options') ?>
+                <?php echo $block->getApplyHtml() ?>
+            </strong>
+
+
+            <div class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='{"Manadev_Core/js/StatefulAccordionWidget":{"id": "<?php echo $this->getNameInLayout() ?>.filters", "openedState": "active", "collapsible": true, "active": false, "multipleCollapsible": false}}'>
+                <?php foreach ($block->getFilters() as $filter): ?>
+
+                    <div data-role="collapsible" class="filter-options-item options-item-<?php echo $filter->getName()?>">
+                        <div data-role="title" class="filter-options-title">
+                        <?php if($block->escapeHtml(__($filter->getName())) == "Category") { ?>
+                            <?php echo "Sub Category"; ?>
+                        <?php } else { ?>
+                            <?php echo $block->escapeHtml(__($filter->getName())) ?>
+                        <?php } ?>
+                        </div>
+                        <div data-role="content" class="filter-options-content"><?php echo $block->renderFilter($filter) ?></div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php if ($block->hasState() && $block->isAppliedFilterVisible()) : ?>
+                <div class="block-actions filter-actions">
+                    <a href="<?php echo $block->getClearUrl() ?>"<?php echo $block->getClearLinkAttributes() ?> class="action clear filter-clear"><span><?php echo __('Clear All') ?></span></a>
+                </div>
+            <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $("#show_hide_sidebar").on('click',function(){
+            if($("#navigation_sidebar").hasClass("sidebarshow")){
+                $("#show_hide_sidebar").removeClass("showactive");
+                $("#navigation_sidebar").hide().removeClass("sidebarshow");
+            }else{
+                $("#show_hide_sidebar").addClass("showactive");
+                $("#navigation_sidebar").show().addClass("sidebarshow");
+            }
+        });
+
+    });
+</script>

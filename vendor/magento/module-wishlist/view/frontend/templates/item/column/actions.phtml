@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var \Magento\Wishlist\Model\Item $item */
+?>
+<style>
+body .products-grid.wishlist .box-tocart .field.qty
+{
+	display:none;
+}
+.products-grid.wishlist .box-tocart {
+    margin-top: 1rem;
+    width: 100%;
+	    margin-bottom: 0;
+}
+.wishlist .product-item-actions .actions-primary
+{
+	width: 100%;
+}
+</style>
+<?php $children = $block->getChildNames(); ?>
+<?php if ($children): ?>
+    <div class="action wishlistaction <?php /* @escapeNotVerified */ echo $block->getCssClass() ?>">
+        <?php foreach ($children as $childName):?>
+            <?php /* @escapeNotVerified */ echo $block->getLayout()->renderElement($childName, false);?>
+        <?php endforeach;?>
+    </div>
+<?php endif; ?>

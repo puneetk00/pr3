@@ -1,0 +1,102 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+
+ if($this->getRequest()->getModuleName() == 'cms'){
+            //unset($crumbs['cms_page']);
+			
+			$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+			if($_SERVER['REQUEST_URI']) {
+        $trim_data  =   substr($_SERVER['REQUEST_URI'],1); 
+        $data   =   explode('/',$trim_data);      
+		//var_dump($data);
+    }
+	
+	?>
+	<div class="breadcrumbs newbrdcr">
+        <ul class="items">
+            <li class="item ">
+                <a href="<?php echo $actual_link; ?>" title="Go to Home Page">
+                        <strong>Home</strong>
+                </a>
+            </li>
+			 <li class="item">
+				<strong><?php echo $data[0]; ?></strong>
+            </li>
+            <li class="item">
+				<strong><?php echo $data[1]; ?></strong>
+            </li>
+                    </ul>
+	</div>
+	<?php
+	
+        }
+		else
+		{
+?>
+
+<?php if ($crumbs && is_array($crumbs)) : ?>
+<div class="breadcrumbs newbrdcr bdcl">
+        <ul class="items">
+            <?php foreach ($crumbs as $crumbName => $crumbInfo) : ?>
+                <li class="item <?php if($crumbName != "home"){ echo $crumbName;  } ?>">
+                <?php if ($crumbInfo['link']) : ?>
+                    <a href="<?php echo $crumbInfo['link'] ?>" title="<?php echo $block->escapeHtml($crumbInfo['title']) ?>">
+                        <strong><?php echo $block->escapeHtml($crumbInfo['label']) ?></strong>
+                    </a>
+                <?php elseif ($crumbInfo['last']) : ?>
+                    <strong><?php echo $block->escapeHtml($crumbInfo['label']) ?></strong>
+                <?php else: ?>
+                    <?php echo $block->escapeHtml($crumbInfo['label']) ?>
+                <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+</div>
+<?php endif; 
+
+		}
+		?>
+		
+		<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function ($, modal) {
+		
+	
+	
+		//$('.swatch-opt').addClass('ssds');
+		$('.swatch-opt').on('click', '.size .swatch-attribute-label', function() {
+			$('.swatch-attribute.size .swatch-attribute-options').toggle();
+		});
+		
+		$('.swatch-opt').on('click', '.size .swatch-option.text', function() {
+			$('.swatch-attribute.size .swatch-attribute-options').toggle();
+		});
+		
+		$('.swatch-opt').on('click', '.swatch-select.color', function() {
+			$('.swatch-attribute.color').addClass('showcolre');
+		$('.swatch-select.color').find('option').each(function(){
+			$('.swatch-attribute.color .swatch-attribute-options ').append('<div class="swatch-option text firt' + $(this).val() + '" option-type="0" option-id="' + $(this).val() + '" option-label="'+$(this).text()+'" option-tooltip-value="' + $(this).val() + '">'+$(this).text()+'</li>');
+	
+		});
+		$('.firt0').remove();
+		$('.swatch-select.color').hide();
+		//$('.swatch-attribute.color .swatch-attribute-options').hide();
+		});
+		
+		$('.swatch-opt').on('click', '.color .swatch-attribute-label', function() {
+			$('.swatch-attribute.color .swatch-attribute-options').toggle();
+		});
+		$('.swatch-opt').on('click', '.color .swatch-option.text', function() {
+			$('.swatch-attribute.color .swatch-attribute-options').toggle();
+		});
+	
+	});
+	</script>
